@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 24
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.android.volley_https_demo"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -25,4 +24,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':volley')
+    compile files('libs/gson-2.2.4.jar')
 }
