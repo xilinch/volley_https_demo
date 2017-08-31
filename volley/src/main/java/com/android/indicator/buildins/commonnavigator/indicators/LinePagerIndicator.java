@@ -61,7 +61,7 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
         indicator.setYOffset(UIUtil.dip2px(context, 8));
         indicator.setStartInterpolator(new AccelerateInterpolator());
         indicator.setEndInterpolator(new DecelerateInterpolator(2.0f));
-        indicator.setColors(Color.parseColor("#FFFF"));
+        indicator.setColors(Color.parseColor("#ffffff"));
         return indicator;
     }
 
