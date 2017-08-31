@@ -2,9 +2,12 @@ package com.android.indicator.buildins.commonnavigator.indicators;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
@@ -47,6 +50,19 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
     public LinePagerIndicator(Context context) {
         super(context);
         init(context);
+    }
+
+    public static LinePagerIndicator getNFDefaultLineIndicator(Context context){
+        LinePagerIndicator indicator = new LinePagerIndicator(context);
+        indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+        indicator.setLineHeight(UIUtil.dip2px(context, 2));
+        indicator.setLineWidth(UIUtil.dip2px(context, 14));
+        indicator.setRoundRadius(UIUtil.dip2px(context, 1));
+        indicator.setYOffset(UIUtil.dip2px(context, 8));
+        indicator.setStartInterpolator(new AccelerateInterpolator());
+        indicator.setEndInterpolator(new DecelerateInterpolator(2.0f));
+        indicator.setColors(Color.parseColor("#FFFF"));
+        return indicator;
     }
 
     private void init(Context context) {
