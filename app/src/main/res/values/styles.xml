@@ -1,6 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-
+    <!--动画属性-->
+    <declare-styleable name="UserLikeAnimationView">
+        <attr name="ulv_src1" format="reference"/>
+        <attr name="ulv_src2" format="reference"/>
+        <attr name="ulv_src3" format="reference"/>
+    </declare-styleable>
 
 </resources>
