@@ -22,8 +22,8 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 requestTest();
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -36,6 +36,7 @@ public class MainActivity extends Activity {
         RequestUtil.httpGet(this, url, parms, new VolleyListener<String>() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, error.getMessage(),Toast.LENGTH_SHORT).show();
                 ((TextView)findViewById(R.id.tv)).setText(error.getMessage());
             }
 
