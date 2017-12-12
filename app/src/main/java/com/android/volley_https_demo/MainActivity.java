@@ -32,7 +32,8 @@ public class MainActivity extends Activity {
 
     private void requestTest(){
         //http://blog.csdn.net/xujiayin/article/details/51697355
-        String url = "https://www.baidu.com";
+//        String url = "https://www.baidu.com";
+        String url = "https://testmember.nfapp.southcn.com/ucapi/user/commentList?uuid=c979f7b9c29a11e7b0e77cd30abdd3e8&userOldId=303881&pageNum=1&pageSize=20";
 //        String url = "https://kyfw.12306.cn/otn/";
         Map<String,String> parms = new HashMap<>();
         RequestUtil.httpGet(this, url, parms, new NFHttpResponseListener<String>() {

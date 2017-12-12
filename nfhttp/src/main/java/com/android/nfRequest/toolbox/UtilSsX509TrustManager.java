@@ -1,10 +1,10 @@
 package com.android.nfRequest.toolbox;
 
+import android.util.Log;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
-
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -75,4 +75,27 @@ public class UtilSsX509TrustManager implements X509TrustManager {
 
         HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
     }
+
+    /**
+     *
+     * @return
+     */
+    public static javax.net.ssl.SSLSocketFactory createSSLSocketFactory() {
+        javax.net.ssl.SSLSocketFactory ssfFactory = null;
+
+        try {
+            if (trustManagers == null) {
+                trustManagers = new TrustManager[]{new UtilSsX509TrustManager()};
+            }
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustManagers, new SecureRandom());
+
+            ssfFactory = sc.getSocketFactory();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("my","createSSLSocketFactory ---");
+        return ssfFactory;
+    }
 }
+

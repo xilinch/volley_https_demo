@@ -65,7 +65,7 @@ public class NfOkHttp {
         if (stack == null) {
             //6.0以上 全部切换成OKhttp，要注意兼容性
 //            stack = new NfOkHttpStack(new OkHttpClient());
-            if (Build.VERSION.SDK_INT >= 23) {
+            if (Build.VERSION.SDK_INT >= 17) {
                 if (okHttpClient == null) {
                     okHttpClient = new OkHttpClient();
                 }
