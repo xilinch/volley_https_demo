@@ -125,6 +125,7 @@ public class NfOkHttpStack implements HttpStack {
         int timeoutMs = request.getTimeoutMs();
         OkHttpClient client = mClient.newBuilder()
                 .readTimeout(timeoutMs, TimeUnit.MILLISECONDS)
+                .sslSocketFactory(UtilSsX509TrustManager.createSSLSocketFactory())
                 .connectTimeout(timeoutMs, TimeUnit.MILLISECONDS)
                 .writeTimeout(timeoutMs, TimeUnit.MILLISECONDS)
                 .build();
