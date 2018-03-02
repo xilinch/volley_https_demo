@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.nfRequest.AuthFailureError;
 import com.android.nfRequest.DefaultRetryPolicy;
+import com.android.nfRequest.NFLog;
 import com.android.nfRequest.NetworkResponse;
 import com.android.nfRequest.Response;
 import com.android.nfRequest.toolbox.HttpHeaderParser;
@@ -24,7 +25,7 @@ public class BaseRequest extends StringRequest {
                        Response.Listener<String> listener, Response.ErrorListener errorListener) {
         super(method, url, listener, errorListener);
         //设置超时间，重试次数等
-        setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        setRetryPolicy(new DefaultRetryPolicy(5 * 1000, 1, 1.0f));
 
 //		this.mHeaders.put(GlobalConstants.API_VERSION_KEY, GlobalConstants.API_VERSION_VALUE);
 //		this.mHeaders.put(GlobalConstants.AUTHORIZATION_KEY, GlobalConstants.AUTHORIZATION_VALUE);

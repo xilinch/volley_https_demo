@@ -71,18 +71,6 @@ public class RequestUtil {
         return encodedParams.substring(0, encodedParams.length() - 1).toString();
     }
 
-    public static void httpGetNoToken(Context context, String url, Map<String, String> params, final NFHttpResponseListener listener, Object tag) {
-        StringBuilder url_builder = new StringBuilder(url);
-
-        if (params != null && params.size() > 0) {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                url_builder.append("&" + entry.getKey() + "=" + entry.getValue());
-            }
-        }
-
-        httpStringRequest(context, Request.Method.GET, url_builder.toString(), null, listener, tag);
-    }
-
     public static void httpGet(Context context, String url, Map<String, String> params, final NFHttpResponseListener listener) {
         NFLog.d("http", "context:" + context + " url:" + url + " params :" + params);
         if (params == null) {
@@ -191,15 +179,6 @@ public class RequestUtil {
         httpPost(context, url, params, listener, null);
     }
 
-    public static void httpPut(Context context, String url, Map<String, String> params, final NFHttpResponseListener listener) {
-        httpPut(context, url, params, listener, null);
-    }
-
-    public static void httpPut(Context context, String url, Map<String, String> params, final NFHttpResponseListener listener, Object tag) {
-
-        httpStringRequest(context, Request.Method.PUT, url, params, listener, tag);
-    }
-
     public static void httpStringRequest(Context context, int method, String url, Map<String, String> params, final NFHttpResponseListener listener, Object tag) {
         RequestQueue requestQueue = NFRequestUtil.getInstance().getRequestQueue();
 
@@ -257,8 +236,6 @@ public class RequestUtil {
             request.setTag(tag);
         }
     }
-
-
     /**
      * 支持stringpart 和 filepart
      *
@@ -344,22 +321,7 @@ public class RequestUtil {
         httpGsonRequest(context, Request.Method.GET, url_builder.toString(), cls, null, listener, tag);
     }
 
-    public static void httpGsonGetNoToken(Context context, String url, Class cls, Map<String, String> params, final NFHttpResponseListener listener, Object tag) {
-        StringBuilder url_builder = new StringBuilder(url);
 
-
-        if (params != null && params.size() > 0) {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                url_builder.append("&" + entry.getKey() + "=" + entry.getValue());
-            }
-        }
-
-        httpGsonRequest(context, Request.Method.GET, url_builder.toString(), cls, null, listener, tag);
-    }
-
-    public static void httpGsonGetNoToken(Context context, String url, Class cls, Map<String, String> params, final NFHttpResponseListener listener) {
-        httpGsonGetNoToken(context, url, cls, params, listener, null);
-    }
 
     public static void httpGsonGet(Context context, String url, Class cls, Map<String, String> params, final NFHttpResponseListener listener) {
         httpGsonGet(context, url, cls, params, listener, null);
@@ -380,40 +342,6 @@ public class RequestUtil {
         httpGsonRequest(context, Request.Method.PUT, url, cls, params, listener, tag);
     }
 
-
-    public static void httpGsonPut(Context context, String url, Class cls, Map<String, String> params, final NFHttpResponseListener listener) {
-        httpGsonPut(context, url, cls, params, listener, null);
-    }
-
-    public static void httpGsonDelete(Context context, String url, Class cls, Map<String, String> params, final NFHttpResponseListener listener, Object tag) {
-        StringBuilder url_builder = new StringBuilder(url);
-//        url_builder.append("?clientType=");
-//        url_builder.append(GlobalConstants.CLIENT_TYPE);
-//        url_builder.append("&version=");
-//        url_builder.append(AppUtil.getVersionName(context));
-//        url_builder.append("&screenType=");
-//        url_builder.append(String.valueOf(AppUtil.getScreenType(context)));
-//        url_builder.append("&deviceId=");
-//        url_builder.append(AppUtil.getIMEI(context));
-//
-//        String token =  ReaderApplication.getInstace().getToken(context);
-//        if(!TextUtils.isEmpty(token)){
-//            url_builder.append("&token=");
-//            url_builder.append(token);
-//        }
-
-        if (params != null && params.size() > 0) {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                url_builder.append("&" + entry.getKey() + "=" + entry.getValue());
-            }
-        }
-
-        httpGsonRequest(context, Request.Method.DELETE, url_builder.toString(), cls, null, listener, tag);
-    }
-
-    public static void httpGsonDelete(Context context, String url, Class cls, Map<String, String> params, final NFHttpResponseListener listener) {
-        httpGsonDelete(context, url, cls, params, listener, null);
-    }
 
     public static <T> void httpGsonRequest(Context context, int method, String url, Class<T> cls, Map<String, String> params,
                                            final NFHttpResponseListener listener, Object tag) {

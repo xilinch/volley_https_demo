@@ -55,8 +55,13 @@ public class UtilOSProperties {
 
             }
             Log.e("my","getSystem:" + system);
-            return system;
+
         }
+        if (android.os.Build.BRAND.equals("HUAWEI")
+                || android.os.Build.BRAND.equals("honor")) {
+            system = SYS_EMUI; //华为
+        }
+        return system;
     }
 
     public static String getMeizuFlymeOSFlag() {
