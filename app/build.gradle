@@ -1,8 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "25.0.0"
+
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.android.volley_https_demo"
         minSdkVersion 15
@@ -10,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,13 +31,13 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
     compile project(':nfhttp')
 //    compile files('libs/gson-2.2.4.jar')
-    compile(name: 'nfhttp-release', ext: 'aar')
+//    compile(name: 'nfhttp-release', ext: 'aar')
     compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
     compile 'com.squareup.okio:okio:1.6.0'
+    //20170414增加AE动画支持
+    compile 'com.airbnb.android:lottie:2.0.0-beta4'
 }
