@@ -1,6 +1,8 @@
 package com.android.xl;
 
+import android.os.Build;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -43,8 +45,9 @@ public class UtilOSProperties {
             } else if (getMeizuFlymeOSFlag().toLowerCase().contains("flyme")) {
                 system = SYS_FLYME; //魅族
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            system = null;
         } finally {
             if (fileInputStream != null){
                 try{
@@ -55,11 +58,15 @@ public class UtilOSProperties {
 
             }
             Log.e("my","getSystem:" + system);
-
         }
-        if (android.os.Build.BRAND.equals("HUAWEI")
-                || android.os.Build.BRAND.equals("honor")) {
-            system = SYS_EMUI; //华为
+        if (TextUtils.isEmpty(system)) {
+            String brand = android.os.Build.BRAND;
+            if ("HUAWEI".equals(brand) || android.os.Build.BRAND.equals("honor")) {
+                system = SYS_EMUI; //华为
+            } else if("Xiaomi".equals(brand) || "Xiaomi".equals(Build.MANUFACTURER)){
+                //xiaomi   model
+                system = SYS_MIUI;
+            }
         }
         return system;
     }

@@ -26,7 +26,9 @@ public class BaseRequest extends StringRequest {
         super(method, url, listener, errorListener);
         //设置超时间，重试次数等
         setRetryPolicy(new DefaultRetryPolicy(5 * 1000, 1, 1.0f));
-
+        if(mHeaders != null){
+            mHeaders.put("Connection","close");
+        }
 //		this.mHeaders.put(GlobalConstants.API_VERSION_KEY, GlobalConstants.API_VERSION_VALUE);
 //		this.mHeaders.put(GlobalConstants.AUTHORIZATION_KEY, GlobalConstants.AUTHORIZATION_VALUE);
     }

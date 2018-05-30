@@ -16,6 +16,7 @@
 
 package com.android.nfRequest.toolbox;
 
+import com.android.nfRequest.AuthFailureError;
 import com.android.nfRequest.NFLog;
 import com.android.nfRequest.NetworkResponse;
 import com.android.nfRequest.Request;
@@ -24,6 +25,8 @@ import com.android.nfRequest.Response.ErrorListener;
 import com.android.nfRequest.Response.Listener;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A request for retrieving a T type response body at a given URL that also
@@ -41,7 +44,7 @@ public abstract class JsonRequest<T> extends Request<T> {
 
     private final Listener<T> mListener;
     private final String mRequestBody;
-
+    private Map<String, String> mHeaders = new HashMap<>();
     /**
      * Deprecated constructor for a JsonRequest which defaults to GET unless {@link #getPostBody()}
      * or {@link #getPostParams()} is overridden (which defaults to POST).
@@ -59,6 +62,14 @@ public abstract class JsonRequest<T> extends Request<T> {
         super(method, url, errorListener);
         mListener = listener;
         mRequestBody = requestBody;
+        if(mHeaders != null){
+            mHeaders.put("Connection","close");
+        }
+    }
+
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        return mHeaders;
     }
 
     @Override

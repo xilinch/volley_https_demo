@@ -3,6 +3,7 @@ package com.android.indicator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.android.indicator.abs.IPagerNavigator;
@@ -53,10 +54,17 @@ public class NFCustomIndicator extends FrameLayout {
         }
         mNavigator = navigator;
         removeAllViews();
-        if (mNavigator instanceof View) {
-            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            addView((View) mNavigator, lp);
-            mNavigator.onAttachToMagicIndicator();
+        try{
+            if (mNavigator instanceof View) {
+                LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                if(((View) mNavigator).getParent()!=null){
+                    ((ViewGroup)((View) mNavigator).getParent()).removeView((View) mNavigator);
+                }
+                addView((View) mNavigator, lp);
+                mNavigator.onAttachToMagicIndicator();
+            }
+        } catch (Exception exception){
+            exception.printStackTrace();
         }
     }
 }
