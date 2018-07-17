@@ -199,6 +199,9 @@ public class RequestUtil {
                 }
             }
         });
+        if(NFRequestUtil.headers != null && request.mHeaders != null){
+            request.mHeaders.putAll(NFRequestUtil.headers);
+        }
 
         request.setParams(params);
 //        request.setRetryPolicy(new DefaultRetryPolicy(GlobalConstants.REQUEST_TIME_OUT, 1, 1.0f));
@@ -229,6 +232,18 @@ public class RequestUtil {
                 }
             }
         });
+        try{
+            Map<String,String> headers = request.getHeaders();
+            if(NFRequestUtil.headers != null && headers != null){
+                headers.putAll(NFRequestUtil.headers);
+            }
+        } catch (Exception exception){
+            exception.printStackTrace();
+
+        } finally{
+
+        }
+
         requestQueue.add(request);
         if (tag == null) {
             request.setTag(url);
