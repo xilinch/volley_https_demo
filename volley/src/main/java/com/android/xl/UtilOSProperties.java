@@ -1,11 +1,15 @@
 package com.android.xl;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
@@ -25,7 +29,7 @@ public class UtilOSProperties {
     private static final String KEY_EMUI_VERSION = "ro.build.version.emui";
     private static final String KEY_EMUI_CONFIG_HW_SYS_VERSION = "ro.confg.hw_systemversion";
 
-    public static String getSystem() {
+    public static String getSystem(Context context) {
         String system = "";
         FileInputStream fileInputStream = null;
         try {
@@ -40,11 +44,12 @@ public class UtilOSProperties {
                     || prop.getProperty(KEY_EMUI_VERSION, null) != null
                     || prop.getProperty(KEY_EMUI_CONFIG_HW_SYS_VERSION, null) != null) {
                 system = SYS_EMUI; //华为
-            } else if (getMeizuFlymeOSFlag().toLowerCase().contains("flyme")) {
+            } else if (getMeizuFlymeOSFlag().toLowerCase().contains("flyme") || (context != null && MzSystemUtils.isBrandMeizu(context))) {
                 system = SYS_FLYME; //魅族
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            system = null;
         } finally {
             if (fileInputStream != null){
                 try{
@@ -55,8 +60,19 @@ public class UtilOSProperties {
 
             }
             Log.e("my","getSystem:" + system);
-            return system;
         }
+        if (TextUtils.isEmpty(system)) {
+            String brand = android.os.Build.BRAND;
+            if ("HUAWEI".equalsIgnoreCase(brand) || "honor".equalsIgnoreCase(android.os.Build.BRAND)) {
+                system = SYS_EMUI; //华为
+            } else if("Xiaomi".equalsIgnoreCase(brand) || "Xiaomi".equals(Build.MANUFACTURER)){
+                //xiaomi   model
+                system = SYS_MIUI;
+            } else if("meizu".equalsIgnoreCase(android.os.Build.BRAND)){
+                system = SYS_FLYME;
+            }
+        }
+        return system;
     }
 
     public static String getMeizuFlymeOSFlag() {
